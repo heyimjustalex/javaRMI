@@ -1,6 +1,6 @@
 FROM openjdk 
 
-WORKDIR /app
+WORKDIR /
 
 RUN microdnf upgrade \
   --refresh \
@@ -14,7 +14,8 @@ RUN microdnf install mc
 RUN microdnf install procps
 RUN microdnf install iproute
 
-COPY . .
+RUN git clone https://github.com/heyimjustalex/javaRMI.git
+
 RUN ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/'
 CMD ["bash"] 
 # docker build . -t rmi_example
